@@ -1,0 +1,21 @@
+<model>
+    <mount>//OPNsense/velocloud</mount>
+    <version>1.0.0</version>
+    <description>VeloCloud Edge 520/540 board support</description>
+    <items>
+        <general>
+            <enabled type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </enabled>
+            <fallback type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </fallback>
+            <serialport type="BooleanField">
+                <Default>1</Default>
+                <Required>Y</Required>
+            </serialport>
+        </general>
+    </items>
+</model>

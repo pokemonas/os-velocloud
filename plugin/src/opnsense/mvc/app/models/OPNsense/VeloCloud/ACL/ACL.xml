@@ -1,0 +1,15 @@
+<acl>
+    <page-interfaces-velocloud>
+        <name>Interfaces: VeloCloud Edge</name>
+        <patterns>
+            <pattern>ui/velocloud/*</pattern>
+            <pattern>api/velocloud/*</pattern>
+        </patterns>
+    </page-interfaces-velocloud>
+    <page-dashboard-widget-velocloud>
+        <name>Dashboard: VeloCloud Edge ports widget</name>
+        <patterns>
+            <pattern>api/velocloud/status/get</pattern>
+        </patterns>
+    </page-dashboard-widget-velocloud>
+</acl>

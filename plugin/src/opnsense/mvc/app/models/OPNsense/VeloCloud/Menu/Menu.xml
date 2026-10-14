@@ -1,0 +1,5 @@
+<menu>
+    <Interfaces>
+        <VeloCloud VisibleName="VeloCloud Edge" order="150" cssClass="fa fa-microchip fa-fw" url="/ui/velocloud"/>
+    </Interfaces>
+</menu>

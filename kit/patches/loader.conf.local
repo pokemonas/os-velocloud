@@ -1,0 +1,7 @@
+# VeloCloud Edge 540: I354 ports (LAN switches + GE1/GE2) via if_vcigb
+if_vcigb_load="YES"
+# serial console is COM2 (0x2F8) on this box
+boot_serial="YES"
+console="comconsole"
+comconsole_port="0x2F8"
+comconsole_speed="115200"
