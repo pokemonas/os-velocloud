@@ -1,2 +1,0 @@
-velocloud.conf:/usr/local/etc/velocloud.conf
-loader:/usr/local/etc/rc.loader.d/50-velocloud

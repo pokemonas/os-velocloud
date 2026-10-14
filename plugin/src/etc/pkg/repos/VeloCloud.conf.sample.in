@@ -1,7 +1,0 @@
-VeloCloud: {
-  url: "%%REPO_URL%%/freebsd15-amd64",
-  signature_type: "%%SIGNATURE_TYPE%%",
-  fingerprints: "/usr/local/etc/pkg/fingerprints/VeloCloud",
-  priority: 5,
-  enabled: %%REPO_ENABLED%%
-}
