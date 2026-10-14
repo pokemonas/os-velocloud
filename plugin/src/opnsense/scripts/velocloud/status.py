@@ -134,6 +134,12 @@ def ports():
     return rows
 
 
+def i354_present():
+    # FreeBSD 14+: "vendor=0x8086 device=0x1f41"; older: "chip=0x1f418086"
+    out = run('/usr/sbin/pciconf', '-l')
+    return re.search(r'vendor=0x8086 device=0x1f41|chip=0x1f418086', out) is not None
+
+
 def modules():
     result = []
     for info in sorted(glob.glob(os.path.join(MODDIR, '*', 'info'))):
@@ -147,7 +153,8 @@ def main():
     uname = run('/usr/bin/uname', '-v').strip()
     m = re.search(r'-([0-9a-f]{12}) ', uname + ' ')
     kcommit = m.group(1) if m else ''
-    loaded = subprocess.run(['/sbin/kldstat', '-q', '-m', 'vcigb']).returncode == 0
+    # by file name: MODULE_VERSION does not declare a module kldstat -m can find
+    loaded = subprocess.run(['/sbin/kldstat', '-q', '-n', 'if_vcigb']).returncode == 0
     built_for = (sysctl('hw.vcigb.kerncommit') or '') if loaded else ''
     state = read_kv(STATE)
     avail = modules()
@@ -162,7 +169,7 @@ def main():
 
     result = {
         'kernel': {'uname': uname, 'commit': kcommit, 'installed': installed_kernel},
-        'board': run('/usr/sbin/pciconf', '-l').find('chip=0x1f418086') >= 0,
+        'board': i354_present(),
         'driver': {
             'loaded': loaded,
             'built_for': built_for,

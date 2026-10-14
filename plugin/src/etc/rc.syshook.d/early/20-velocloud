@@ -6,12 +6,12 @@
 
 /usr/local/opnsense/scripts/velocloud/select.sh -q
 
-if ! pciconf -l 2>/dev/null | grep -q 'chip=0x1f418086'; then
+if ! pciconf -l 2>/dev/null | grep -Eq 'vendor=0x8086 device=0x1f41|chip=0x1f418086'; then
 	exit 0
 fi
 
 KCOMMIT=$(uname -v | sed -n 's/.*-\([0-9a-f]\{12\}\) .*/\1/p')
-if kldstat -q -m vcigb; then
+if kldstat -q -n if_vcigb; then
 	BUILT=$(sysctl -n hw.vcigb.kerncommit 2>/dev/null)
 	if [ -n "${BUILT}" ] && [ "${BUILT}" != "${KCOMMIT}" ]; then
 		echo "velocloud: if_vcigb built for kernel ${BUILT}, running ${KCOMMIT}"

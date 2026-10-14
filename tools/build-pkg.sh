@@ -121,7 +121,7 @@ if [ -f /usr/local/opnsense/scripts/firmware/register.php ]; then /usr/local/opn
 if ! grep -q '^if_vcigb_load="YES"' /boot/loader.conf; then
 	echo "os-velocloud: WARNING: if_vcigb_load missing from /boot/loader.conf, do not reboot before fixing"
 fi
-if ! kldstat -q -m vcigb; then
+if ! kldstat -q -n if_vcigb; then
 	echo "os-velocloud: reboot to bring up LAN1-8, GE1 and GE2"
 fi
 EOF
