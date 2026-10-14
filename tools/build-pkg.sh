@@ -74,6 +74,7 @@ for D in "$HERE"/modules/*/; do
 	C=$(basename "$D")
 	mkdir -p "$L/lib/velocloud/$C"
 	cp "$D/if_vcigb.ko" "$D/info" "$L/lib/velocloud/$C/"
+	chmod 0644 "$L/lib/velocloud/$C/if_vcigb.ko" "$L/lib/velocloud/$C/info"
 done
 
 # ---- OPNsense plugin version info (System: Firmware: Plugins)
@@ -105,9 +106,21 @@ fi
 /usr/local/opnsense/scripts/velocloud/select.sh
 if [ -f /usr/local/opnsense/mvc/script/run_migrations.php ]; then /usr/local/opnsense/mvc/script/run_migrations.php OPNsense/VeloCloud; fi
 if [ -f /usr/local/etc/rc.d/configd ]; then /usr/local/etc/rc.d/configd restart; fi
+# configd needs a moment before it accepts commands again
+i=0
+while [ ! -S /var/run/configd.socket ] && [ $i -lt 30 ]; do sleep 1; i=$((i + 1)); done
+sleep 1
 if [ -f /usr/local/sbin/configctl ]; then /usr/local/sbin/configctl template reload OPNsense/VeloCloud; fi
+if [ ! -f /usr/local/etc/rc.loader.d/50-velocloud ]; then
+	# configd unavailable: write the default loader chunk directly
+	printf '# VeloCloud Edge 520/540 (os-velocloud)\nif_vcigb_load="YES"\nhw.vcigb.strict="0"\ncomconsole_port="0x2F8"\n' \
+	    > /usr/local/etc/rc.loader.d/50-velocloud
+fi
 if [ -f /usr/local/etc/rc.configure_firmware ]; then /usr/local/etc/rc.configure_firmware; fi
 if [ -f /usr/local/opnsense/scripts/firmware/register.php ]; then /usr/local/opnsense/scripts/firmware/register.php install os-velocloud; fi
+if ! grep -q '^if_vcigb_load="YES"' /boot/loader.conf; then
+	echo "os-velocloud: WARNING: if_vcigb_load missing from /boot/loader.conf, do not reboot before fixing"
+fi
 if ! kldstat -q -m vcigb; then
 	echo "os-velocloud: reboot to bring up LAN1-8, GE1 and GE2"
 fi
