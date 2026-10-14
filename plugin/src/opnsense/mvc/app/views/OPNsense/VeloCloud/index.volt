@@ -82,6 +82,11 @@
             $drv.append(kv("{{ lang._('Driver') }}", modeText[d.mode] + (d.built_for ? ' (' + d.built_for + ')' : ''), health));
             $drv.append(kv("{{ lang._('Next boot') }}", (nextText[d.next_boot] || d.next_boot) +
                 (d.next_module ? ' (' + d.next_module + ')' : '')));
+            if (data.qat && data.qat.present) {
+                $drv.append(kv("{{ lang._('QuickAssist') }}", data.qat.loaded ?
+                    "{{ lang._('qat_c2xxx loaded') }}" : "{{ lang._('present, driver not loaded') }}",
+                    data.qat.loaded ? 'text-success' : 'text-muted'));
+            }
             $drv.append(kv("{{ lang._('Modules in package') }}", data.available.map(function (m) {
                 return (m.ref ? m.ref + ' ' : '') + '(' + m.commit + ')' +
                     (m.commit === data.kernel.commit ? ' ✓' : '');

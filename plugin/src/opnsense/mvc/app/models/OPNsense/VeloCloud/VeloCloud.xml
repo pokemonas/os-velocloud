@@ -16,6 +16,10 @@
                 <Default>1</Default>
                 <Required>Y</Required>
             </serialport>
+            <qat type="BooleanField">
+                <Default>0</Default>
+                <Required>Y</Required>
+            </qat>
         </general>
     </items>
 </model>

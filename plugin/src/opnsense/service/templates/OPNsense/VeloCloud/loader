@@ -9,3 +9,6 @@ hw.vcigb.strict="0"
 {% if g.serialport|default('1') == '1' %}
 comconsole_port="0x2F8"
 {% endif %}
+{% if g.qat|default('0') == '1' %}
+qat_c2xxx_load="YES"
+{% endif %}

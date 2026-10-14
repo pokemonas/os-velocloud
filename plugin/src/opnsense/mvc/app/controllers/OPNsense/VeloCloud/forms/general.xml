@@ -17,4 +17,10 @@
         <type>checkbox</type>
         <help>Point the loader serial console at COM2 (0x2F8), the micro-USB port. Enable the serial console itself in System: Settings: Administration (Console: Serial, 115200).</help>
     </field>
+    <field>
+        <id>velocloud.general.qat</id>
+        <label>Intel QuickAssist (C2000)</label>
+        <type>checkbox</type>
+        <help>Load qat_c2xxx for the Atom C2000 QuickAssist engine (PCI 00:0b.0). It offloads kernel crypto, i.e. IPsec; WireGuard, OpenVPN and the web GUI do not use it, and AES-NI is used anyway. Leave "Hardware acceleration" in Miscellaneous at None: the "qat" choice there is the driver for newer chips. Takes effect at the next boot.</help>
+    </field>
 </form>

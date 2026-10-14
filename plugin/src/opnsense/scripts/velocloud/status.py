@@ -179,6 +179,11 @@ def main():
             'next_module': state.get('exact') or state.get('fallback', ''),
         },
         # a kernel update was installed but the box has not rebooted yet
+        'qat': {
+            'present': re.search(r'vendor=0x8086 device=0x1f18|chip=0x1f188086',
+                                 run('/usr/sbin/pciconf', '-l')) is not None,
+            'loaded': subprocess.run(['/sbin/kldstat', '-q', '-n', 'qat_c2xxx']).returncode == 0,
+        },
         'reboot_pending': bool(installed_kernel and kcommit and installed_kernel != kcommit),
         'available': avail,
         'available_for_kernel': any(a['commit'] == kcommit for a in avail),
