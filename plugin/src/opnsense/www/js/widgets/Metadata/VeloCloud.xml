@@ -1,0 +1,16 @@
+<metadata>
+    <velocloud>
+        <filename>VeloCloud.js</filename>
+        <endpoints>
+            <endpoint>/api/velocloud/status/get</endpoint>
+        </endpoints>
+        <translations>
+            <title>VeloCloud Edge ports</title>
+            <nodata>Port status could not be read.</nodata>
+            <notloaded>The I354 driver is not loaded.</notloaded>
+            <mismatch>The driver module was built for another kernel.</mismatch>
+            <up>up</up>
+            <down>down</down>
+        </translations>
+    </velocloud>
+</metadata>

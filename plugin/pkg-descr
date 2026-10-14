@@ -1,0 +1,11 @@
+Board support for the VeloCloud Edge 520/540 (Intel Atom C2000 with an
+I354 quad-port and two Marvell 88E6176 switches).
+
+Loads the if_vcigb driver for the running OPNsense kernel early at boot,
+so the eight LAN ports (two unmanaged 4-port switches, vcigb0/vcigb1) and
+GE1/GE2 (vcigb2/vcigb3) are available.  The SFP cages stay on igb.
+
+Adds Interfaces: VeloCloud Edge with per-jack link status, a driver/kernel
+match check and boot settings, plus a dashboard widget.  The package
+carries one driver module per OPNsense kernel and installs its own package
+repository, so new modules arrive with System: Firmware updates.

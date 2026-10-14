@@ -1,0 +1,7 @@
+work/
+public/
+tools/pkg
+kit/work/
+kit/out/
+*.key
+__pycache__/

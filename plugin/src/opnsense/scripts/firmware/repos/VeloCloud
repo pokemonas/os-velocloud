@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# os-velocloud: activate the VeloCloud package repository (firmware configure)
+
+CONF=/usr/local/etc/pkg/repos/VeloCloud.conf
+
+if [ -f ${CONF}.sample ]; then
+	cp ${CONF}.sample ${CONF}
+fi
